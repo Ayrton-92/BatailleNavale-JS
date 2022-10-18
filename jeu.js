@@ -1,4 +1,3 @@
-var toolbox = require("./toolbox.js");
 
 var jeu = {
     nbColonne : 5,
@@ -59,23 +58,46 @@ var jeu = {
     },
 
     afficherGrille : function(){
-        for(var i=0; i < this.nbLigne; i++){
-            var txt = "";
-            for(var j=0; j < this.nbColonne; j++){
-                txt += "| ";
-                if(this.grille[i][j]===0){
-                    txt += "_";
-                } else if(this.grille[i][j]===1){
-                    txt += "x";
-                } else if(this.grille[i][j]===2){
-                    txt += "o";
-                } else if(this.grille[i][j]===3){
-                    txt += "d";
-                }
-                txt += " |";
+        // for(var i=0; i < this.nbLigne; i++){
+        //     var txt = "";
+        //     for(var j=0; j < this.nbColonne; j++){
+        //         txt += "| ";
+        //         if(this.grille[i][j]===0){
+        //             txt += "_";
+        //         } else if(this.grille[i][j]===1){
+        //             txt += "x";
+        //         } else if(this.grille[i][j]===2){
+        //             txt += "o";
+        //         } else if(this.grille[i][j]===3){
+        //             txt += "d";
+        //         }
+        //         txt += " |";
+        //     }
+        //     console.log(txt);
+        // }
+        const jeu = document.querySelector('#jeu');
+        jeu.innerHTML = "";
+
+        var content = "<table>";
+        for(var i=0; i < this.nbLigne;i++){
+            content += "<tr>";
+            for(var j=0; j < this.nbColonne;j++){
+                content += "<td class='border text-center' style='width:100px;height:100px'>";
+                if(this.grille[i][j] === 0){
+                    content += "";
+                } 
+                // else if (this.puissance4[i][j] === 1){
+                //     content += "<img src='./images/J1.png' class='bg-danger rounded-circle'/>";
+                // } if(this.puissance4[i][j] === 2){
+                //     content += "<img src='./images/J2.png' class='bg-info rounded-circle'/>";
+                // }
+                content += "</td>";
             }
-            console.log(txt);
+            content += "</tr>";
         }
+       
+        content+= "</table>";
+        jeu.innerHTML = content;
     },
     jouerCase : function(ligne,colonne){
         if(this.grille[ligne][colonne] === 1) this.nbCaseJ1--;
@@ -84,4 +106,3 @@ var jeu = {
         if(this.nbCaseJ1 <=0 || this.nbCaseJ2 <=0) return true;
     }
 }
-module.exports = jeu;

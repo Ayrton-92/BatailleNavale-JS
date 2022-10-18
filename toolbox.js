@@ -1,4 +1,3 @@
-var readline = require("readline-sync");
 var toolbox = {
     saisieString: function(txt){
         return readline.question(txt);
@@ -25,4 +24,3 @@ var toolbox = {
         return tab;
     }
 }
-module.exports = toolbox;
