@@ -58,23 +58,6 @@ var jeu = {
     },
 
     afficherGrille : function(){
-        // for(var i=0; i < this.nbLigne; i++){
-        //     var txt = "";
-        //     for(var j=0; j < this.nbColonne; j++){
-        //         txt += "| ";
-        //         if(this.grille[i][j]===0){
-        //             txt += "_";
-        //         } else if(this.grille[i][j]===1){
-        //             txt += "x";
-        //         } else if(this.grille[i][j]===2){
-        //             txt += "o";
-        //         } else if(this.grille[i][j]===3){
-        //             txt += "d";
-        //         }
-        //         txt += " |";
-        //     }
-        //     console.log(txt);
-        // }
         const jeu = document.querySelector('#jeu');
         jeu.innerHTML = "";
 
@@ -84,13 +67,23 @@ var jeu = {
             for(var j=0; j < this.nbColonne;j++){
                 content += "<td class='border text-center' style='width:100px;height:100px'>";
                 if(this.grille[i][j] === 0){
-                    content += "";
+                    content += "<button class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
                 } 
-                // else if (this.puissance4[i][j] === 1){
-                //     content += "<img src='./images/J1.png' class='bg-danger rounded-circle'/>";
-                // } if(this.puissance4[i][j] === 2){
-                //     content += "<img src='./images/J2.png' class='bg-info rounded-circle'/>";
-                // }
+                if (this.grille[i][j] === 1){
+                    content += "<button class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
+                    content += "<img src='./images/J1.png' class='bg-danger rounded-circle'/>";
+                } if(this.grille[i][j] === 2){
+                    content += "<button class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
+                    content += "<img src='./images/J2.png' class='bg-info rounded-circle'/>";
+                }
+                if(this.grille[i][j] === 3){
+                    content += "<img src='./images/croix.png'";
+                }
+                if (this.grille[i][j] === 4){
+                    content += "<img src='./images/croix.png' class='bg-danger rounded-circle'/>";
+                } if(this.grille[i][j] === 5){
+                    content += "<img src='./images/croix.png' class='bg-info rounded-circle'/>";
+                }
                 content += "</td>";
             }
             content += "</tr>";
@@ -100,9 +93,19 @@ var jeu = {
         jeu.innerHTML = content;
     },
     jouerCase : function(ligne,colonne){
-        if(this.grille[ligne][colonne] === 1) this.nbCaseJ1--;
-        if(this.grille[ligne][colonne] === 2) this.nbCaseJ2--;
-        this.grille[ligne][colonne] = 3;
+        if(this.grille[ligne][colonne]===0){
+            this.grille[ligne][colonne] = 3;
+        }
+
+        if(this.grille[ligne][colonne] === 1){
+        this.nbCaseJ1--;
+        this.grille[ligne][colonne] = 4;
+        }
+        
+        if(this.grille[ligne][colonne] === 2) {
+        this.nbCaseJ2--;
+        this.grille[ligne][colonne] = 5;
+        }
         if(this.nbCaseJ1 <=0 || this.nbCaseJ2 <=0) return true;
     }
 }
