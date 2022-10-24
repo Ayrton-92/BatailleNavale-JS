@@ -106,6 +106,8 @@ var jeu = {
         this.nbCaseJ2--;
         this.grille[ligne][colonne] = 5;
         }
+    },
+    verificationFinJeu: function(){
         if(this.nbCaseJ1 <=0 || this.nbCaseJ2 <=0) return true;
     }
 }
