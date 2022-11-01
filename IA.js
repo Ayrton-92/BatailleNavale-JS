@@ -20,6 +20,7 @@ var IA = {
             }
         }
         return celVide;
+    },
 
     getPoidsCel : function(ligne,colonne){
         var poidsCellule = 1;

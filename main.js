@@ -2,13 +2,13 @@ const tour = document.querySelector("#tour");
 const alert = document.querySelector(".alert");
 const messageJ1 = document.querySelector("#j1");
 const messageJ2 = document.querySelector("#j2");
+var nbBateauSaisie = 0;
+
 var joueurEnCours = 1;
 var finJeu = false;
 
 var pointJ1 = 0;
 var pointJ2 = 0;
-
-initialisationTableau();
 
 function jouer(ligne,colonne){
     jouerCase(ligne,colonne);
@@ -32,7 +32,7 @@ function jouerCase(ligne, colonne){
     }
 }
 
-function initialisationTableau(){
+function initialisationTableau(nbBateau){
     jeu.nbCaseJ1 = 0;
     jeu.nbCaseJ2 = 0;
     finJeu = false;
@@ -45,7 +45,7 @@ function initialisationTableau(){
     contentJ2 += pointJ2; 
     messageJ2.innerHTML = contentJ2;
 
-    jeu.initialisation();
+    jeu.initialisation(nbBateau);
     jeu.afficherGrille();
 }
 
@@ -53,13 +53,31 @@ function gererFinJeu(){
     finJeu = true;
     var contentAlert = "Partie terminée, le gagnant est : " + joueurEnCours + "<br />";
     contentAlert += '<button type="button" class="btn btn-secondary" onClick = initialisationTableau()>Recommencer</button>';
-    alert.innerHTML = contentAlert;
-    alert.classList.remove("d-none");
+    afficherAlert(contentAlert,1);
     if(joueurEnCours===1){
         pointJ1++;
     } else {
         pointJ2++;
     }
+}
+
+function afficherAlert(txt, type){
+    if(type===1){
+        alert.classList.add("alert-success");
+        alert.classList.remove("alert-danger");
+    } else {
+        alert.classList.remove("alert-success");
+        alert.classList.add("alert-danger");
+    }
+    alert.innerHTML = txt;
+    alert.classList.remove("d-none");
+}
+
+function startGame(){
+    nbBateauSaisie = parseInt(document.querySelector("#nbBateau").value);
+    if(nbBateauSaisie < 2) afficherAlert("Le nb de bateau doit être supérieur à 2",2);
+    if(nbBateauSaisie > 4) afficherAlert("Le nb de bateau doit être inférieur à 5",2);
+    if(nbBateauSaisie >=2 && nbBateauSaisie <=4) initialisationTableau(nbBateauSaisie);
 }
 
 
