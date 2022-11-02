@@ -6,25 +6,35 @@ var jeu = {
     nbCaseJ1 : 0,
     nbCaseJ2 : 0,
 
-    initialisation : function(){
+    initialisation : function(nbBateau){
+        this.nbColonne = nbBateau * 2 +1;
+        this.nbLigne = nbBateau * 2 +1;
         this.grille = toolbox.initialiserTableauVide(this.nbLigne,this.nbColonne,0);
-        this.positionnerBateau(3,1);
-        this.nbCaseJ1 += 3;
-        this.positionnerBateau(2,1);
-        this.nbCaseJ1 += 2;
-        this.positionnerBateau(3,2);
-        this.nbCaseJ2 += 3;
-        this.positionnerBateau(2,2);
-        this.nbCaseJ2 += 2;
+
+        for(var i =1 ; i <= nbBateau;i++){
+            this.positionnerBateau((i+1),1);
+            this.nbCaseJ1 += i+1;
+            this.positionnerBateau((i+1),2);
+            this.nbCaseJ2 += i+1;
+        }
     },
 
     positionnerBateau : function(taille,joueur){
         var bateau = {};
         var positionTermine = false;
         while(!positionTermine){
-            var xAlea = Math.floor(Math.random() * (this.nbLigne-(taille-1)));
-            var yAlea = Math.floor(Math.random() * (this.nbColonne-(taille-1)));
+            var tailleXMax = 0;
+            var tailleYMax = 0;
             var isHorizontal = Math.floor(Math.random() * 2);
+            if(isHorizontal){
+                tailleXMax = this.nbLigne -(taille-1);
+                tailleYMax = this.colonne;
+            } else {
+                tailleXMax = this.nbLigne;
+                tailleYMax = this.nbColonne -(taille-1);
+            }
+            var xAlea = Math.floor(Math.random() * tailleXMax);
+            var yAlea = Math.floor(Math.random() * tailleYMax);
     
             var isCaseVide = true;
             for(var i =1 ; i <= taille && isCaseVide; i++){
@@ -59,30 +69,34 @@ var jeu = {
     afficherGrille : function(){
         const jeu = document.querySelector("#jeu");
         jeu.innerHTML = "";
+        var ratio = (100 - (10 * (this.nbColonne-5)+1));
+        //2 bateaux --> 5 colonnes --> 90 px
+        //3 bateaux --> 7 colonnes --> 70px
+        //4 bateaux --> 9 colonnes --> 50px
         
         var content = "<table>";
             for(var i=0; i < this.nbLigne;i++){
                 content += "<tr>";
                 for(var j=0 ; j < this.nbColonne;j++){
-                    content += "<td class='border text-center' style='width:100px;height:100px'>";
+                    content += "<td class='border text-center' style='width:"+ratio+"px;height:"+ratio+"px'>";
                     if(this.grille[i][j]=== 0){
                         content += "<button class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
                     } 
 
                     if(this.grille[i][j]=== 1){
-                        content += "<img src='./images/J1.png' class='bg-danger rounded-circle' />";
+                        content += "<img src='./images/J1.png' style='width:"+ratio+"px;height:"+ratio+"px'  class='bg-danger rounded-circle' />";
                     } 
                     if(this.grille[i][j]=== 2){
                         content += "<button class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
                     }
                     if(this.grille[i][j]=== 3){
-                        content += "<img src='./images/croix.png' />";
+                        content += "<img src='./images/croix.png' style='width:"+ratio+"px;height:"+ratio+"px'/>";
                     }
                     if(this.grille[i][j]=== 4){
-                        content += "<img src='./images/croix.png' class='bg-danger rounded-circle' />";
+                        content += "<img src='./images/croix.png' class='bg-danger rounded-circle' style='width:"+ratio+"px;height:"+ratio+"px'/>";
                     } 
                     if(this.grille[i][j]=== 5){
-                        content += "<img src='./images/croix.png' class='bg-info rounded-circle' />";
+                        content += "<img src='./images/croix.png' class='bg-info rounded-circle' style='width:"+ratio+"px;height:"+ratio+"px'/>";
                     }
                     content += "</td>";
                 }
