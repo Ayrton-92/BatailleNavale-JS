@@ -80,6 +80,38 @@ function startGame(){
     if(nbBateauSaisie >=2 && nbBateauSaisie <=4) initialisationTableau(nbBateauSaisie);
 }
 
+addEventListener("click", function(event){
+    console.log(event);
+    var target = event.target;
+    if(target.id === "play"){
+        var image = "<img src='./images/explo/explosion00.png' id='explo' style='width:100px;height:100px;position:absolute;top:"+(event.clientY-50)+"px;left:"+(event.clientX-50)+"px' />";
+        var body = document.querySelector("body");
+        var element = document.createElement("p");
+        element.innerHTML = image;
+        body.appendChild(element);
+
+        imageExplo(9);
+
+        function imageExplo(time){
+            var explo = document.querySelector("#explo");
+            if(time >=1){
+                if(time===9) explo.setAttribute("src","./images/explo/explosion01.png");
+                if(time===8) explo.setAttribute("src","./images/explo/explosion02.png");
+                if(time===7) explo.setAttribute("src","./images/explo/explosion03.png");
+                if(time===6) explo.setAttribute("src","./images/explo/explosion04.png");
+                if(time===5) explo.setAttribute("src","./images/explo/explosion05.png");
+                if(time===4) explo.setAttribute("src","./images/explo/explosion06.png");
+                if(time===3) explo.setAttribute("src","./images/explo/explosion07.png");
+                if(time===2) explo.setAttribute("src","./images/explo/explosion08.png");
+                if(time===1) explo.remove(this);
+
+                setTimeout(function(){
+                    imageExplo(time-1);
+                },25);
+            }
+        }
+    }
+});
 
 
 

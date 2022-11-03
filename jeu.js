@@ -23,15 +23,15 @@ var jeu = {
         var bateau = {};
         var positionTermine = false;
         while(!positionTermine){
-            var tailleXMax = 0;
+            var tailleXMax =0;
             var tailleYMax = 0;
             var isHorizontal = Math.floor(Math.random() * 2);
             if(isHorizontal){
                 tailleXMax = this.nbLigne -(taille-1);
-                tailleYMax = this.colonne;
+                tailleYMax = this.nbColonne;
             } else {
                 tailleXMax = this.nbLigne;
-                tailleYMax = this.nbColonne -(taille-1);
+                tailleYMax = this.nbColonne - (taille-1);
             }
             var xAlea = Math.floor(Math.random() * tailleXMax);
             var yAlea = Math.floor(Math.random() * tailleYMax);
@@ -80,14 +80,14 @@ var jeu = {
                 for(var j=0 ; j < this.nbColonne;j++){
                     content += "<td class='border text-center' style='width:"+ratio+"px;height:"+ratio+"px'>";
                     if(this.grille[i][j]=== 0){
-                        content += "<button class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
+                        content += "<button id='play' class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
                     } 
 
                     if(this.grille[i][j]=== 1){
                         content += "<img src='./images/J1.png' style='width:"+ratio+"px;height:"+ratio+"px'  class='bg-danger rounded-circle' />";
                     } 
                     if(this.grille[i][j]=== 2){
-                        content += "<button class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
+                        content += "<button id='play' class='btn btn-secondary' onClick='jouer("+i+","+j+")'>Tirer</button>";
                     }
                     if(this.grille[i][j]=== 3){
                         content += "<img src='./images/croix.png' style='width:"+ratio+"px;height:"+ratio+"px'/>";
